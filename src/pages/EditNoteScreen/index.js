@@ -10,6 +10,8 @@ import {
   SaveButtonImage,
   CloseButton,
   CloseButtonImage,
+  DeleteButton,
+  DeleteButtonText
 } from './styles';
 
 export default () => {
@@ -73,6 +75,16 @@ export default () => {
     navigation.goBack();
   };
 
+  const handleDeleteNote = () => {
+    dispatch({
+      type: "DEL_NOTE",
+      payload:{
+        key: route.params.key
+      }
+    })
+    navigation.goBack();
+  }
+
   return (
     <Container>
       <TitleInput
@@ -90,6 +102,11 @@ export default () => {
         multiline={true}
         textAlignVertical="top"
       />
+      {status == "edit" &&
+        <DeleteButton underlayColor="#FF0000" onPress={handleDeleteNote}>
+          <DeleteButtonText>Excluir Anotação</DeleteButtonText>
+        </DeleteButton>
+      }
     </Container>
   );
 };
